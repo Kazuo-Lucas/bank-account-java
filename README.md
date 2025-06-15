@@ -1,6 +1,6 @@
 # 💰 Projeto Conta Bancária (Terminal)
 
-Este é um projeto simples desenvolvido em **Java** que simula operações bancárias no terminal. O usuário pode criar contas, consultar saldo, depositar e sacar dinheiro. O projeto usa conceitos básicos de programação orientada a objetos (POO), estrutura de repetição e entrada de dados via `Scanner`.
+Este é um projeto simples desenvolvido para treinar habilidades em **Java** que simula operações bancárias no terminal. O usuário pode criar contas, consultar saldo, depositar e sacar dinheiro. O projeto usa conceitos básicos de programação orientada a objetos (POO), estrutura de repetição e entrada de dados via `Scanner`.
 
 ---
 
