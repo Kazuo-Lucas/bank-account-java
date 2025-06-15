@@ -48,20 +48,24 @@ public class Conta {
     public void depositar(double valor) {
         if (valor > 0) {
             saldo += valor;
-            System.out.printf("Depósito de R$%.2f realizado com sucesso! Saldo atual: R$%.2f%n", valor, saldo);
+            System.out.printf("Depósito de R$%.2f realizado com sucesso!\n\n Saldo atual: R$%.2f%n\n", valor, saldo);
         } else {
-            System.out.println("Valor de depósito inválido.");
+            System.out.println("Valor de depósito inválido.\n");
         }
     }
 
     public void sacar(double valor) {
         if (valor > 0 && valor <= saldo) {
             saldo -= valor;
-            System.out.printf("Saque de R$%.2f realizado com sucesso! Saldo atual: R$%.2f%n", valor, saldo);
+            System.out.printf("Saque de R$%.2f realizado com sucesso! Saldo atual: R$%.2f%n\n", valor, saldo);
         } else if (valor > saldo) {
-            System.out.println("Saldo insuficiente para realizar o saque.");
+            System.out.println("Saldo insuficiente para realizar o saque.\n");
         } else {
             System.out.println("Valor de saque inválido.");
         }
+    }
+
+    public void exibirDados() {
+        System.out.printf("Conta: %s\nAgência: %s\nTitular: %s\nCPF: %s\nSaldo: R$%.2f%n\n", numero, agencia, nome, cpf, saldo);
     }
 }

@@ -19,33 +19,35 @@ public class ContaTerminal {
                     String nome = scanner.nextLine();
 
                     if (contas.containsKey(cpf)) {
-                        System.out.println("Conta já existe para este CPF.");
+                        System.out.println("Conta já existe para este CPF.\n");
                     } else {
                         Conta novaConta = new Conta(cpf, nome);
                         contas.put(cpf, novaConta);
                         cpfAtual = cpf;
-                        System.out.printf("Conta criada com sucesso! Número: %s, Agência: %s%n", novaConta.getNumero(), novaConta.getAgencia());
+                        System.out.printf("Conta criada com sucesso! Número: %s, Agência: %s%n\n", novaConta.getNumero(), novaConta.getAgencia());
                     }
                 }
                 case 2 -> {
-                    System.out.println("Digite o CPF para consultar o saldo: ");
-                    cpfAtual = scanner.nextLine();
-                    if (!contas.containsKey(cpfAtual)) {
-                        System.out.println("Conta não encontrada para o CPF informado.");
-                        cpfAtual = null; // Reseta o CPF atual se não encontrado
-                    }
-                    if (cpfAtual == null) {
-                        System.out.println("Nenhuma conta criada. Por favor, crie uma conta primeiro.");
+                    System.out.print("Digite seu CPF: ");
+                    String cpf = scanner.nextLine();
+                    if (contas.containsKey(cpf)) {
+                        cpfAtual = cpf;
+                        System.out.println("Você entrou na conta com sucesso!\n");
                     } else {
-                        Conta conta = contas.get(cpfAtual);
-                        System.out.printf("Saldo atual: R$%.2f%n", conta.getSaldo());
+                        System.out.println("Conta não encontrada para o CPF informado.\n");
                     }
                 }
                 case 3 -> {
-                    System.out.println("Digite o CPF do titular para realizar o deposito: ");
-                    cpfAtual = scanner.nextLine();
                     if (cpfAtual == null) {
-                        System.out.println("Nenhuma conta criada. Por favor, crie uma conta primeiro.");
+                        System.out.println("Nenhuma conta logada. Por favor, crie uma conta primeiro.\n");
+                    } else {
+                        Conta conta = contas.get(cpfAtual);
+                        System.out.printf("Saldo atual: R$%.2f%n\n", conta.getSaldo());
+                    }
+                }
+                case 4 -> {
+                    if (cpfAtual == null) {
+                        System.out.println("Nenhuma conta logada. Por favor, crie uma conta primeiro.\n");
                         break;
                     }
                     System.out.print("Digite o valor a depositar: ");
@@ -53,11 +55,9 @@ public class ContaTerminal {
                     Conta conta = contas.get(cpfAtual);
                     conta.depositar(valorDeposito);
                 }
-                case 4 -> {
-                    System.out.println("Digite o CPF do titular para realizar o saque: ");
-                    cpfAtual = scanner.nextLine();
+                case 5 -> {
                     if (cpfAtual == null) {
-                        System.out.println("Nenhuma conta criada. Por favor, crie uma conta primeiro.");
+                        System.out.println("Nenhuma conta logada. Por favor, crie uma conta primeiro.\n");
                         break;
                     }
                     System.out.print("Digite o valor a sacar: ");
@@ -65,7 +65,34 @@ public class ContaTerminal {
                     Conta conta = contas.get(cpfAtual);
                     conta.sacar(valorSaque);
                 }
-                case 5 -> {
+                case 6 -> {
+                    if (cpfAtual == null) {
+                        System.out.println("Nenhuma conta logada. Por favor, crie uma conta primeiro.\n");
+                    } else {
+                        Conta conta = contas.get(cpfAtual);
+                        System.out.printf("Dados da Conta:\nNome: %s\nCPF: %s\nNúmero: %s\nAgência: %s\nSaldo: R$%.2f%n\n",
+                                conta.getNome(), conta.getCpf(), conta.getNumero(), conta.getAgencia(), conta.getSaldo());
+                    }
+                }
+                case 7 -> {
+                    System.out.println("Digite o CPF do titular para trocar de conta: ");
+                    String novoCpf = scanner.nextLine();
+                    if (contas.containsKey(novoCpf)) {
+                        cpfAtual = novoCpf;
+                        System.out.println("Conta trocada com sucesso!");
+                    } else {
+                        System.out.println("Conta não encontrada para o CPF informado.");
+                    }
+                }
+                case 8 -> {
+                    if (cpfAtual == null) {
+                        System.out.println("Nenhuma conta logada. Por favor, crie ou entre em uma conta primeiro.\n");
+                    } else {
+                        cpfAtual = null; 
+                        System.out.println("Você saiu da conta atual.\n");
+                    }
+                }   
+                case 9 -> {
                     System.out.println("Encerrando o programa...");
                     scanner.close();
                     return;
@@ -77,10 +104,14 @@ public class ContaTerminal {
     public static void exibirMenu() {
         System.out.println("Bem-vindo ao Banco!");
         System.out.println("1. Criar Conta");
-        System.out.println("2. Consultar Saldo");
-        System.out.println("3. Depositar");
-        System.out.println("4. Sacar");
-        System.out.println("5. Sair");
+        System.out.println("2. Entrar em Conta");
+        System.out.println("3. Consultar Saldo");
+        System.out.println("4. Depositar");
+        System.out.println("5. Sacar");
+        System.out.println("6. Exibir Dados da Conta");
+        System.out.println("7. Trocar de Conta");
+        System.out.println("8. Sair da Conta");
+        System.out.println("9. Sair");
         System.out.println("---------------------------");
         System.out.println("Escolha uma opção: ");
     }
